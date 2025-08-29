@@ -2,8 +2,7 @@
 require('dotenv').config();  // Para carregar as variáveis do .env
 const express = require('express');
 const { createClient } = require('@supabase/supabase-js');
-import cors from 'cors';
-
+const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3000;
