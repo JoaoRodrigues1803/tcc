@@ -1,8 +1,12 @@
 // index.js
-require('dotenv').config();  // Para carregar as variáveis do .env
+//require('dotenv').config();  // Para carregar as variáveis do .env
 const express = require('express');
-const { createClient } = require('@supabase/supabase-js');
 const cors = require('cors');
+const dotenv = require('dotenv');
+const { createClient } = require('@supabase/supabase-js');
+dotenv.config();  // Carrega as variáveis do .env
+
+
 
 const app = express();
 const port = process.env.PORT || 3000;
