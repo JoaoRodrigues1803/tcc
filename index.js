@@ -2,9 +2,12 @@
 require('dotenv').config();  // Para carregar as variáveis do .env
 const express = require('express');
 const { createClient } = require('@supabase/supabase-js');
+import cors from 'cors';
+
 
 const app = express();
 const port = process.env.PORT || 3000;
+app.use(cors());
 
 // Configurando o cliente do Supabase
 const supabase = createClient(
@@ -26,7 +29,7 @@ app.get('/teste', async (req, res) => {
   if (error) {
     return res.status(500).json({ error: error.message });
   }
-  res.json(data);
+  res.status(200).json(data);
 });
 
 // Inicia o servidor
