@@ -46,9 +46,7 @@ app.get('/localizacao', async (req, res)=>{
     return res.status(500).json({error: error.message});
   }
   res.status(200).json(localizacao)
-}
-
-)
+});
 
 // Inicia o servidor
 app.listen(port, () => {
