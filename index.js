@@ -38,7 +38,7 @@ app.get('/teste', async (req, res) => {
 
 //endpoint para o mapa
 app.get('/localizacao', async (req, res)=>{
-  const { localizacao, error } = await supabase
+  const { data: localizacao, error } = await supabase
   .from('coleta_de_dados')
   .select('latitude, longitude');
 
