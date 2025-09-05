@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
 const { createClient } = require('@supabase/supabase-js');
+const req = require('express/lib/request');
 dotenv.config();  // Carrega as variáveis do .env
 
 
@@ -34,6 +35,20 @@ app.get('/teste', async (req, res) => {
   }
   res.status(200).json(data);
 });
+
+//endpoint para o mapa
+app.get('/localizacao', async (req, res)=>{
+  const { localizacao, error } = await supabase
+  .from('coleta_de_dados')
+  .select('latitude', 'longitude');
+
+  if (aerror){
+    return res.status(500).json({error: error.message});
+  }
+  res.status(200).json(localizacao)
+}
+
+)
 
 // Inicia o servidor
 app.listen(port, () => {
