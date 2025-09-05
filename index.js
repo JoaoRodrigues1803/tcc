@@ -37,15 +37,20 @@ app.get('/teste', async (req, res) => {
 });
 
 //endpoint para o mapa
-app.get('/localizacao', async (req, res)=>{
-  const { data: localizacao, error } = await supabase
-  .from('coleta_de_dados')
-  .select('latitude, longitude');
+app.get('/localizacao', async (req, res) => {
+  try {
+    const { data: localizacao, error } = await supabase
+      .from('coleta_de_dados')  // Nome da tabela correta
+      .select('latitude, longitude');
 
-  if (error){
-    return res.status(500).json({error: error.message});
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+
+    res.status(200).json(localizacao);  // Retorna a localização
+  } catch (err) {
+    res.status(500).json({ error: 'Erro interno no servidor.' });
   }
-  res.status(200).json(localizacao)
 });
 
 // Inicia o servidor
