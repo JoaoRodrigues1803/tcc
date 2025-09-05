@@ -40,9 +40,9 @@ app.get('/teste', async (req, res) => {
 app.get('/localizacao', async (req, res)=>{
   const { localizacao, error } = await supabase
   .from('coleta_de_dados')
-  .select('latitude', 'longitude');
+  .select('latitude, longitude');
 
-  if (aerror){
+  if (error){
     return res.status(500).json({error: error.message});
   }
   res.status(200).json(localizacao)
