@@ -36,6 +36,23 @@ app.get('/teste', async (req, res) => {
   res.status(200).json(data);
 });
 
+//endpoint para verificar o usuario
+app.get('/usuario', async (req, res) => {
+  try {
+    const { data: usuario, error } = await supabase
+      .from('usuario')  // Nome da tabela correta
+      .select('*')
+      .eq('nome', {nome});  // Filtra pelo ID do usuário
+      
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+    res.status(200).json(usuario);  // Retorna os dados do usuário
+  } catch (err) {
+    res.status(500).json({ error: 'Erro interno no servidor.' });
+  }
+});
+
 //endpoint para o mapa
 app.get('/localizacao', async (req, res) => {
   try {
