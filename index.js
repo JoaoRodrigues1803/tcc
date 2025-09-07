@@ -70,6 +70,37 @@ app.get('/localizacao', async (req, res) => {
   }
 });
 
+app.get('/batimentos', async (req, res) => {
+  try {
+    const { data: batimentos, error } = await supabase
+      .from('coleta_de_dados')  // Nome da tabela correta
+      .select('frequencia_cardiaca');
+
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+    res.status(200).json(batimentos);  // Retorna os batimentos
+  } catch (err) {
+    res.status(500).json({ error: 'Erro interno no servidor.' });
+  }
+});
+
+app.post('/cadastroPet', async (req, res) => {
+  try {
+    const { nome, raca, idade, peso, sexo, porte, vacinado, castrado, observacoes } = req.body;
+    const { data, error } = await supabase
+      .from('pets')  // Nome da tabela correta
+      .insert([{ nome, raca, idade, peso, sexo, porte, vacinado, castrado, observacoes }]);
+    if (error) {
+      return res.status(500).json({ error: error.message });
+    }
+    res.status(201).json(data);  // Retorna os dados do pet cadastrado
+  } catch (err) {
+    res.status(500).json({ error: 'Erro interno no servidor.' });
+  }
+});
+      
+
 // Inicia o servidor
 app.listen(port, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);
